@@ -2,7 +2,7 @@ package com.tom.guess3
 
 import java.util.Random
 
-class SceretNumber {
+class SecretNumber {
     var secret: Int = Random().nextInt(10) + 1
     var count = 0
 
@@ -16,7 +16,7 @@ class SceretNumber {
 
 
 fun main() {
-    val secretNumber = SceretNumber()
+    val secretNumber = SecretNumber()
     println(secretNumber.secret)
     println("${secretNumber.validate(2)} , count:${secretNumber.count}")
 
