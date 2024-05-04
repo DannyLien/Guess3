@@ -27,17 +27,17 @@ class MainActivity : AppCompatActivity() {
 //        findViewById<TextView>(R.id.number)
         val n = binding.number.text.toString().toInt()
         Log.d(TAG, "check: number ${n}")
-        var message = "You got it!"
+        var message = getString(R.string.you_got_it)
         if (secretNumber.validate(n) < 0) {
-            message = "Bigger"
+            message = getString(R.string.bigger)
         } else if (secretNumber.validate(n) > 0) {
-            message = "Smaller"
+            message = getString(R.string.smaller)
         }
 //        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         AlertDialog.Builder(this)
-            .setTitle("Message")
+            .setTitle(getString(R.string.dialog_title))
             .setMessage(message)
-            .setPositiveButton("OK",null)
+            .setPositiveButton(getString(R.string.dialog_title),null)
             .show()
     }
 

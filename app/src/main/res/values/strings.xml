@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Guess3</string>
+    <string name="please_enter_a_number">Please enter a number(1~10)</string>
+    <string name="ok">OK</string>
+    <string name="you_got_it">You got it!</string>
+    <string name="bigger">Bigger</string>
+    <string name="smaller">Smaller</string>
+    <string name="dialog_title">Enter</string>
 </resources>
