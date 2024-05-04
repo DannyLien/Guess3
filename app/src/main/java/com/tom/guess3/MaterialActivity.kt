@@ -1,5 +1,6 @@
 package com.tom.guess3
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -29,7 +30,6 @@ class MaterialActivity : AppCompatActivity() {
                 .setMessage("Are you sure?")
                 .setPositiveButton(getString(R.string.ok), { dialog, which ->
                     secretNumber.reset()
-                    Log.d(TAG, "onCreate: secret = ${secretNumber.secret} ")
                     binding.contentView.counter.setText(secretNumber.count.toString())
                     binding.contentView.number.setText("")
                 })
@@ -38,6 +38,7 @@ class MaterialActivity : AppCompatActivity() {
 
         }
         binding.contentView.counter.setText(secretNumber.count.toString())
+        Log.d(TAG, "onCreate: secret = ${secretNumber.secret} ")
 
     }
 
@@ -57,7 +58,13 @@ class MaterialActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.dialog_title))
             .setMessage(message)
-            .setPositiveButton(getString(R.string.dialog_title), null)
+            .setPositiveButton(getString(R.string.dialog_title), { dialog, which ->
+                if (diff == 0) {
+                    val intent = Intent(this, RecordActivity::class.java)
+                    intent.putExtra("COUNTER", secretNumber.count)
+                    startActivity(intent)
+                }
+            })
             .show()
     }
 
