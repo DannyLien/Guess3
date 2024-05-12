@@ -21,7 +21,7 @@ class MaterialActivity : AppCompatActivity() {
         binding = ActivityMaterialBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-
+        Log.d(TAG, "onCreate: ")
         Log.d(TAG, "onCreate: secret = ${secretNumber.secret} ")
 
         binding.fab.setOnClickListener { view ->
@@ -40,10 +40,42 @@ class MaterialActivity : AppCompatActivity() {
         binding.contentView.counter.setText(secretNumber.count.toString())
         Log.d(TAG, "onCreate: secret = ${secretNumber.secret} ")
         val count = getSharedPreferences("guess", MODE_PRIVATE).getInt("REC_COUNTER", -1)
-        val nick = getSharedPreferences("guess", MODE_PRIVATE).getString("REC_NICKNAME",null)
+        val nick = getSharedPreferences("guess", MODE_PRIVATE).getString("REC_NICKNAME", null)
         Log.d(TAG, "onCreate: getSharedPreferences data : ${count} , ${nick}")
-        
+
     }
+
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart: ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop: ")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause: ")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, "onRestart: ")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume: ")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy: ")
+    }
+
 
     fun check(view: View) {
 //        findViewById<TextView>(R.id.number)
