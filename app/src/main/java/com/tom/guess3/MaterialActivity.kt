@@ -39,7 +39,10 @@ class MaterialActivity : AppCompatActivity() {
         }
         binding.contentView.counter.setText(secretNumber.count.toString())
         Log.d(TAG, "onCreate: secret = ${secretNumber.secret} ")
-
+        val count = getSharedPreferences("guess", MODE_PRIVATE).getInt("REC_COUNTER", -1)
+        val nick = getSharedPreferences("guess", MODE_PRIVATE).getString("REC_NICKNAME",null)
+        Log.d(TAG, "onCreate: getSharedPreferences data : ${count} , ${nick}")
+        
     }
 
     fun check(view: View) {
@@ -58,7 +61,7 @@ class MaterialActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.dialog_title))
             .setMessage(message)
-            .setPositiveButton(getString(R.string.dialog_title), { dialog, which ->
+            .setPositiveButton(getString(R.string.ok), { dialog, which ->
                 if (diff == 0) {
                     val intent = Intent(this, RecordActivity::class.java)
                     intent.putExtra("COUNTER", secretNumber.count)

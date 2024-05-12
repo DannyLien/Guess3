@@ -13,7 +13,16 @@ class RecordActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val count = intent.getIntExtra("COUNTER", -1)
-        binding.recCounter.setText(count.toString())
+        binding.counter.setText(count.toString())
+
+        binding.save.setOnClickListener {
+            val nickName = binding.nickName.text.toString()
+            getSharedPreferences("guess", MODE_PRIVATE)
+                .edit()
+                .putInt("REC_COUNTER", count)
+                .putString("REC_NICKNAME", nickName)
+                .apply()
+        }
 
     }
 }
