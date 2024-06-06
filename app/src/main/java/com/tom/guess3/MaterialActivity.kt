@@ -11,10 +11,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import com.tom.guess3.databinding.ActivityMaterialBinding
 
 class MaterialActivity : AppCompatActivity() {
+
+    private val REQUEST_RECORD = 100
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMaterialBinding
     val secretNumber = SecretNumber()
     val TAG = MaterialActivity::class.java.simpleName
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,17 +28,7 @@ class MaterialActivity : AppCompatActivity() {
         Log.d(TAG, "onCreate: secret = ${secretNumber.secret} ")
 
         binding.fab.setOnClickListener { view ->
-            AlertDialog.Builder(this)
-                .setTitle("Replay game")
-                .setMessage("Are you sure?")
-                .setPositiveButton(getString(R.string.ok), { dialog, which ->
-                    secretNumber.reset()
-                    binding.contentView.counter.setText(secretNumber.count.toString())
-                    binding.contentView.number.setText("")
-                })
-                .setNeutralButton("Cancel", null)
-                .show()
-
+            replay()
         }
         binding.contentView.counter.setText(secretNumber.count.toString())
         Log.d(TAG, "onCreate: secret = ${secretNumber.secret} ")
@@ -45,6 +38,18 @@ class MaterialActivity : AppCompatActivity() {
 
     }
 
+    private fun replay() {
+        AlertDialog.Builder(this)
+            .setTitle("Replay game")
+            .setMessage("Are you sure?")
+            .setPositiveButton(getString(R.string.ok), { dialog, which ->
+                secretNumber.reset()
+                binding.contentView.counter.setText(secretNumber.count.toString())
+                binding.contentView.number.setText("")
+            })
+            .setNeutralButton("Cancel", null)
+            .show()
+    }
 
     override fun onStart() {
         super.onStart()
@@ -76,7 +81,6 @@ class MaterialActivity : AppCompatActivity() {
         Log.d(TAG, "onDestroy: ")
     }
 
-
     fun check(view: View) {
 //        findViewById<TextView>(R.id.number)
         val n = binding.contentView.number.text.toString().toInt()
@@ -97,11 +101,19 @@ class MaterialActivity : AppCompatActivity() {
                 if (diff == 0) {
                     val intent = Intent(this, RecordActivity::class.java)
                     intent.putExtra("COUNTER", secretNumber.count)
-                    startActivity(intent)
+//                    startActivity(intent)
+                    startActivityForResult(intent, REQUEST_RECORD)
                 }
             })
             .show()
     }
 
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 100) {
+            val nickname = data?.getStringExtra("NICK")
+            Log.d(TAG, "onActivityResult: $nickname")
+            replay()
+        }
+    }
 }

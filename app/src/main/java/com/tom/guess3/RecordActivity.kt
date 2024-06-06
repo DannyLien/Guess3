@@ -1,5 +1,7 @@
 package com.tom.guess3
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tom.guess3.databinding.ActivityRecordBinding
@@ -22,8 +24,10 @@ class RecordActivity : AppCompatActivity() {
                 .putInt("REC_COUNTER", count)
                 .putString("REC_NICKNAME", nickName)
                 .apply()
+            val intent = Intent().putExtra("NICK", nickName)
+            setResult(Activity.RESULT_OK, intent)
             finish()
         }
-
     }
+
 }
